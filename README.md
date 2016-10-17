@@ -35,11 +35,13 @@ Once the project moves into development, the press release can be used as a touc
   > "The recipe for a happy, successful life is simple: get clear on your priosities and follow through on them." --Natasha Che
 
 ## How to Get Started ##
-  > Sign up at http://prioApp.com to get started.
+  > Sign up at https://prio.herokuapp.com/ to get started.
 
 ## What Others are Saying ##
-  > "My life is so much easier with Prio" --Jeff Benzo
+  > "My life is so much easier with Prio." --Jeff Benzo
+  > "The best app I've seen in years." --Arianna Puffington
+  > "Life changing!" --Borock Obama
 
 ## Next Step ##
-  > Go to prioApp.com NOW to get started.
+  > Go to https://prio.herokuapp.com/ NOW to get started.
 

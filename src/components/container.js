@@ -1,4 +1,5 @@
 import HTML5Backend from 'react-dnd-html5-backend';
+import SubmitList from './submitList';
 
 var React = require('react'),
     Card = require("./Card"),
@@ -31,10 +32,10 @@ var Container = React.createClass({
         card1.order = card2.order;
         card2.order = card1Order;
 
-        cards.sort(this.compareCards);
+        this.props.list.sort(this.compareCards);
 
         this.setState({
-            cards: cards
+            cards: this.props.list
         });
     },
 
@@ -47,16 +48,21 @@ var Container = React.createClass({
             )
         } else {
             return (
-                <div style={style}>
-                    {this.props.list.map(function(card,i) {
-                        return (
-                            <Card key={card.id}
-                                        id={card.id}
-                                        order={card.order}
-                                        text={card.text}
-                                        swapCards={this.swapCards} />
-                        );
-                    }, this)}
+                <div>
+                    <div style={style}>
+                        {this.props.list.map(function(card,i) {
+                            return (
+                                <Card key={card.id}
+                                            id={card.id}
+                                            order={card.order}
+                                            text={card.text}
+                                            swapCards={this.swapCards} />
+                            );
+                        }, this)}
+                    </div>
+
+                    <SubmitList list={this.props.list}/>
+
                 </div>
             )
         };
