@@ -28,16 +28,18 @@ export default class Inputbox extends Component {
   render() {
     return (
       <div className='row'>
-        <form className='col-md-5, input-group' onSubmit={this.handleFormSubmit}>
-          <input
-            className='form-control'
-            placeholder="Write down 3-5 priorities for your life"
-            value={this.state.text}
-            onChange={this.handleInputChange}/>
-          <div className='input-group-addon'>
-            <span>&#9998;</span>
-          </div>
-        </form>
+        <div className='col-md-5'>
+          <form className='input-group' onSubmit={this.handleFormSubmit}>
+            <input
+              className='form-control'
+              placeholder="Write down 3-5 priorities for your life"
+              value={this.state.text}
+              onChange={this.handleInputChange}/>
+            <div className='input-group-addon'>
+              <span>&#9998;</span>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
