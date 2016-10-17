@@ -11,27 +11,10 @@ var style = {
 var Container = React.createClass({
     getInitialState: function(){
         return {
-            cards: [{
-                id: 1,
-                order: 1,
-                text: 'Write a cool JS library'
-            }, {
-                id: 2,
-                order: 2,
-                text: 'Make it generic enough'
-            }, {
-                id: 3,
-                order: 3,
-                text: 'Write README'
-            }, {
-                id: 4,
-                order: 4,
-                text: 'Create some examples'
-            }, {
-                id: 5,
-                order: 5,
-                text: 'Spam in Twitter and IRC to promote it'
-            }]
+            cards: this.props.list
+            // [
+            // {order:1,id:1,text:'learn react'}
+            // ]
         };
     },
 
@@ -40,7 +23,7 @@ var Container = React.createClass({
     },
 
     swapCards: function(id1, id2) {
-        var cards = this.state.cards;
+        var cards = this.props.list;
 
         var card1 = cards.filter(function(c){return c.id === id1})[0];
         var card2 = cards.filter(function(c){return c.id === id2})[0];
@@ -56,19 +39,27 @@ var Container = React.createClass({
     },
 
     render: function() {
-        return (
-            <div style={style}>
-                {this.state.cards.map(function(card) {
-                    return (
-                        <Card key={card.id}
-                                    id={card.id}
-                                    order={card.order}
-                                    text={card.text}
-                                    swapCards={this.swapCards} />
-                    );
-                }, this)}
-            </div>
-        );
+        // console.log('this.state.cards:',this.props.list);
+
+        if(this.props.list.length===0) {
+            return (
+                <div>Enter some priorities...</div>
+            )
+        } else {
+            return (
+                <div style={style}>
+                    {this.props.list.map(function(card,i) {
+                        return (
+                            <Card key={card.id}
+                                        id={card.id}
+                                        order={card.order}
+                                        text={card.text}
+                                        swapCards={this.swapCards} />
+                        );
+                    }, this)}
+                </div>
+            )
+        };
     }
 });
 
