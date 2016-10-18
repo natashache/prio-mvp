@@ -33402,7 +33402,7 @@
 	      var permalink = encodeURIComponent('http://localhost:3000/');
 	      var src = 'https://platform.harvestapp.com/platform/timer?\n              app_name=Prio&\n              closable=true&\n              permalink=' + permalink + '&\n              external_item_id=1&\n              external_item_name=something&\n              chromeless=false';
 	      var style = {
-	        height: '275px',
+	        height: '400px',
 	        borderColor: 'transparent'
 	      };
 

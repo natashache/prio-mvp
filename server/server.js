@@ -17,6 +17,7 @@ app.use('/',express.static(__dirname+'/../'));
 
 app.post('/api/lists',userController.saveList);
 app.get('/api/lists',userController.getList);
+app.get('/api/scores',userController.handleHarvestTasks);
 
 
 app.listen(port);

@@ -10,9 +10,45 @@ var options= {
     Accept: 'application/json'
   }
 };
-var clientId,projects,newProjects;
+var clientId, projects, newProjects, priorityList;
 
-var handleHarvestData=function(data,updatedList) {
+var tabulateTime=function(dayEntry) {
+  var result=[],resultObj;
+  var tabbed=dayEntry.day_entries.reduce(function(tab,entry) {
+    if(tab[entry.project]===undefined) tab[entry.project]=entry.hours;
+    else tab[entry.project]+=entry.hours;
+    return tab;
+  },{});
+  for(var key in tabbed) {
+    result.push({text:key,hours:tabbed[key]});
+  };
+  result.sort(function(a,b){
+    return a.hours-b.hours;
+  });
+  resultObj=result.reduce(function(obj,entry,i) {
+    obj[entry.text]=i+1;
+    return obj;
+  },{});
+  console.log('tabbled:',resultObj);
+  return [result,resultObj];
+};
+
+var lastWeek=function() {
+  var result=Array(7).fill(0);
+  var oneDay = 24*60*60*1000;
+  var today=new Date();
+  var year=today.getFullYear();
+  var firstDay=new Date(year,01,01);
+  var diffDays = Math.round(Math.abs((firstDay.getTime() - today.getTime())/(oneDay)));
+  var i=diffDays+1-6;
+  for(var j=0;j<result.length;j++) {
+    result[j]=i;
+    i++;
+  };
+  return result;
+};
+
+var handleHarvestProjects=function(data,updatedList) {
   clientId=data[0].project.client_id;
   projects=data.map(project=>project.project.name.toLowerCase());
   // console.log('client id:',clientId,'projects',projects);
@@ -48,7 +84,7 @@ var harvestRequest=function(list) {
     var datafromH=JSON.parse(body);
     if(err) console.error(err);
     else {
-      handleHarvestData(datafromH,list.map(list=>list.text));
+      handleHarvestProjects(datafromH,list.map(list=>list.text));
     }
   })
 };
@@ -88,5 +124,38 @@ module.exports= {
             // next();
           }
         })
+  },
+
+  handleHarvestTasks: function(req,res) {
+    List.findOne({month:req.query.month,year:req.query.year,user:req.query.user})
+      .exec(function(err,data) {
+        priorityList=data.list;
+          request.get({
+            url: `https://camilliatree.harvestapp.com/daily/?slim=1`,
+            headers: {
+              Authorization: 'Basic '+authCode,
+              ContentType: 'application/json',
+              Accept: 'application/json'
+            }
+          }, function(err,response,body) {
+                if(err) console.error(err);
+                else {
+                  console.log(res.statusCode);
+                  var dayEntry=JSON.parse(body);
+                  var tabbedObj=tabulateTime(dayEntry)[1];
+                  var priorityObj=priorityList.reduce(function(obj,cur) {
+                    obj[cur.text]=cur.order;
+                    return obj;
+                  },{});
+                  var score=0;
+                  for(var key in priorityObj) {
+                    score+=Math.abs(tabbedObj[key]-priorityObj[key]);
+                  }
+                  res.status(200).send(score);
+                }
+          });
+
+      })
+
   }
 }

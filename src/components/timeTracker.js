@@ -12,7 +12,7 @@ export default class TimeTracker extends Component {
               external_item_name=something&
               chromeless=false`;
     const style= {
-      height: '275px',
+      height: '400px',
       borderColor: 'transparent'
     };
 
