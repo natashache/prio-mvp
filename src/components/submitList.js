@@ -12,17 +12,35 @@ const SubmitList = (props)=> {
       year: today.getFullYear(),
       list: props.list
     };
-    Axios.post('/api/lists', data)
-      .then(function(res) {
-        console.log('post successful');
-      });
+    // const clientId='MLLKPtP5gnWbqLeHf9E4AA';
+    // const redirectUri=encodeURIComponent('http://localhost:3000/oauth_redirect');
+    // const src=`https://camilliatree.harvestapp.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&state=optional-csrf-token&response_type=token`;
+
+    // Axios.post('/api/lists', data)
+    //   .then(function(res) {
+    //     console.log('post successful');
+    //   });
+    // const authCode=btoa('ilovewordsworth@gmail.com:che042382');
+    const authCode='aWxvdmV3b3Jkc3dvcnRoQGdtYWlsLmNvbTpjaGUwNDIzODI=';
+    const config={
+      // headers:{'Acces-Control-Allow-Origin': '*'}
+      Method: 'get',
+      url: 'https://camilliatree.harvestapp.com/projects',
+      Authorization: 'Basic '+authCode,
+      'ContentType': 'application/json',
+      Accept: 'application/json'
+    };
+    Axios(config)
+          .then(function(res) {
+            console.log('response:',res);
+          });
   }
 
   return (
-    <div className='row'>
-      <form onSubmit={handleListSubmit}>
-      Submit when you're done >>
-      <button className='button btn btn-primary'>
+    <div className='row offset-md-5'>
+      <form onSubmit={handleListSubmit} className='pull-right'>
+      <label className='pull-right'>Submit when you're done >>  </label>
+      <button className='button btn btn-default'>
         Submit
       </button>
       </form>

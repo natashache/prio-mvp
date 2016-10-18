@@ -30,15 +30,15 @@ var Card = React.createClass({
 
     render: function() {
         var style = {
-            border: '1px dashed gray',
-            padding: '0.5rem 1rem',
+            border: '1px solid orange',
+            padding: '0.5rem ',
             marginBottom: '.5rem',
             backgroundColor: 'white',
             cursor: 'move',
             opacity: this.props.isDragging ? 0 : 1
         };
         return this.props.connectDragSource(this.props.connectDropTarget(
-            <div style={style}>
+            <div style={style} className='lead'>
                 <span>{this.props.order}. </span>
                 {this.props.text}
             </div>

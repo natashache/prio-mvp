@@ -49,10 +49,10 @@ var Container = React.createClass({
         } else {
             return (
                 <div>
-                    <div style={style}>
+                    <div className='row col-md-10'>
                         {this.props.list.map(function(card,i) {
                             return (
-                                <Card key={card.id}
+                                    <Card key={card.id}
                                             id={card.id}
                                             order={card.order}
                                             text={card.text}
@@ -60,9 +60,9 @@ var Container = React.createClass({
                             );
                         }, this)}
                     </div>
-
-                    <SubmitList list={this.props.list}/>
-
+                    <div className='row col-md-12'>
+                        <SubmitList list={this.props.list}/>
+                    </div>
                 </div>
             )
         };

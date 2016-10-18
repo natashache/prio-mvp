@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Container from './container';
 import Inputbox from './inputBox';
-
+import TimeTracker from './timeTracker';
 
 export default class App extends Component {
   constructor(props) {
@@ -22,12 +22,23 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div>
-          <h1>Prio</h1>
-          <br></br>
+        <div className='page-header'>
+          <h1 className='display-3'>Prio</h1>
+          <p className='lead'>
+            Keeps you on track to achieve what really matters
+          </p>
+          <hr className='m-y-2'></hr>
         </div>
-        <Inputbox addToList={this.handleListInput}/>
-        <Container list={this.state.list}/>
+        <br></br>
+        <div className='row'>
+          <div className='col-md-8'>
+            <Inputbox addToList={this.handleListInput}/>
+            <Container list={this.state.list}/>
+          </div>
+          <div className='col-md-4 pull-right'>
+            <TimeTracker />
+          </div>
+        </div>
       </div>
     );
   }

@@ -28,11 +28,11 @@ export default class Inputbox extends Component {
   render() {
     return (
       <div className='row'>
-        <div className='col-md-5'>
+        <div className='col-md-10'>
           <form className='input-group' onSubmit={this.handleFormSubmit}>
             <input
               className='form-control'
-              placeholder="Write down 3-5 priorities for your life"
+              placeholder="Write down your top 5 priorities for this month and rank them..."
               value={this.state.text}
               onChange={this.handleInputChange}/>
             <div className='input-group-addon'>
