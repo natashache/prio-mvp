@@ -25850,7 +25850,6 @@
 	    }).then(function (res) {
 	      console.log('response:', res);
 	    });
-	    // const authCode=btoa('ilovewordsworth@gmail.com:che042382');
 	    var authCode = 'aWxvdmV3b3Jkc3dvcnRoQGdtYWlsLmNvbTpjaGUwNDIzODI=';
 	    // const config={
 	    //   // headers:{'Acces-Control-Allow-Origin': '*'}

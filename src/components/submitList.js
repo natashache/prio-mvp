@@ -24,7 +24,6 @@ const SubmitList = (props)=> {
       }).then(function(res) {
         console.log('response:',res);
       });
-    // const authCode=btoa('ilovewordsworth@gmail.com:che042382');
     const authCode='aWxvdmV3b3Jkc3dvcnRoQGdtYWlsLmNvbTpjaGUwNDIzODI=';
     // const config={
     //   // headers:{'Acces-Control-Allow-Origin': '*'}
