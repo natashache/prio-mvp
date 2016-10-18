@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/',express.static(__dirname+'/../'));
 
 app.post('/api/lists',userController.saveList);
+app.get('/api/lists',userController.getList);
+
 
 app.listen(port);
 

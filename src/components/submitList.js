@@ -24,9 +24,9 @@ const SubmitList = (props)=> {
       }).then(function(res) {
         console.log('response:',res);
       });
-    const authCode='aWxvdmV3b3Jkc3dvcnRoQGdtYWlsLmNvbTpjaGUwNDIzODI=';
+    // const authCode='aWxvdmV3b3Jkc3dvcnRoQGdtYWlsLmNvbTpjaGUwNDIzODI=';
     // const config={
-    //   // headers:{'Acces-Control-Allow-Origin': '*'}
+    //   headers:{'Acces-Control-Allow-Origin': '*'},
     //   Method: 'get',
     //   url: 'https://camilliatree.harvestapp.com/projects',
     //   Authorization: 'Basic '+authCode,
@@ -36,6 +36,9 @@ const SubmitList = (props)=> {
     // Axios(config)
     //       .then(function(res) {
     //         console.log('response:',res);
+    //       })
+    //       .catch(function(err) {
+    //         console.log('error:',err);
     //       });
   }
 
