@@ -19,18 +19,25 @@ var handleHarvestData=function(data,updatedList) {
   updatedList.forEach(item=>{
     if(!projects.includes(item)) {
       var data={
-        project: {
-          client_id: clientId,
-          active: true,
-          bill_by: 'none',
-          name: item
-        }
-
+            project: {
+              client_id: clientId,
+              active: true,
+              bill_by: 'none',
+              name: item
+            }
       };
-      options[data]=data;
-      request.post(options, function(err,res,body) {
+
+      request.post({
+        url: 'https://camilliatree.harvestapp.com/projects',
+        headers: {
+          Authorization: 'Basic '+authCode,
+          ContentType: 'application/json',
+          Accept: 'application/json'
+        },
+        form: data
+      }, function(err,res,body) {
         if(err) console.error(err);
-        else console.log('project added:',item);
+        else console.log(res.statusCode,res);
       });
     }
   })
