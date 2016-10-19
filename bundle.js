@@ -33366,7 +33366,7 @@
 	          { className: 'col-md-10' },
 	          _react2.default.createElement(
 	            'form',
-	            { className: 'input-group input-group-lg', onSubmit: this.handleFormSubmit },
+	            { className: 'input-group ', onSubmit: this.handleFormSubmit },
 	            _react2.default.createElement('input', {
 	              className: 'form-control',
 	              placeholder: 'Write down your top 5 priorities for this month and rank them...',
@@ -33374,7 +33374,7 @@
 	              onChange: this.handleInputChange }),
 	            _react2.default.createElement(
 	              'span',
-	              { className: 'input-group-addon', id: 'sizing-addon2' },
+	              { className: 'input-group-addon', id: 'default-addon2' },
 	              '\u270E'
 	            )
 	          )
