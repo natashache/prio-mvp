@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Container from './container';
 import Inputbox from './inputBox';
+import Score from './score';
+
 import TimeTracker from './timeTracker';
 import Axios from 'axios';
 
@@ -8,9 +10,11 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state={
-      list:[]
+      list:[],
+      score:-1
     };
     this.handleListInput=this.handleListInput.bind(this);
+    this.handleCalScore=this.handleCalScore.bind(this);
   }
 
   componentWillMount() {
@@ -44,6 +48,29 @@ export default class App extends Component {
     });
   }
 
+  handleCalScore(e) {
+    const that=this;
+    e.preventDefault();
+    const today=new Date();
+    const entry={
+      month: today.getMonth()+1,
+      year: today.getFullYear(),
+      user: 'camilliatree'
+    };
+    this.serverRequest=Axios.get('/api/scores', {
+          params:entry
+    })
+      .then(function(res) {
+        console.log('score response:',res);
+          that.setState({
+            score:res.data.score
+          });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -58,7 +85,9 @@ export default class App extends Component {
         <div className='row'>
           <div className='col-md-8'>
             <Inputbox addToList={this.handleListInput}/>
+            <br></br>
             <Container list={this.state.list}/>
+            <Score score={this.state.score} click={this.handleCalScore}/>
           </div>
           <div className='col-md-4 pull-right'>
             <TimeTracker />

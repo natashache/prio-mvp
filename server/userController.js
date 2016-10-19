@@ -29,7 +29,7 @@ var tabulateTime=function(dayEntry) {
     obj[entry.text]=i+1;
     return obj;
   },{});
-  console.log('tabbled:',resultObj);
+  console.log('tabbed:',resultObj);
   return [result,resultObj];
 };
 
@@ -127,8 +127,10 @@ module.exports= {
   },
 
   handleHarvestTasks: function(req,res) {
+    console.log('request:',req.url);
     List.findOne({month:req.query.month,year:req.query.year,user:req.query.user})
       .exec(function(err,data) {
+        console.log('data:',data);
         priorityList=data.list;
           request.get({
             url: `https://camilliatree.harvestapp.com/daily/?slim=1`,
@@ -140,7 +142,7 @@ module.exports= {
           }, function(err,response,body) {
                 if(err) console.error(err);
                 else {
-                  console.log(res.statusCode);
+                  console.log(response.statusCode);
                   var dayEntry=JSON.parse(body);
                   var tabbedObj=tabulateTime(dayEntry)[1];
                   var priorityObj=priorityList.reduce(function(obj,cur) {
@@ -149,9 +151,11 @@ module.exports= {
                   },{});
                   var score=0;
                   for(var key in priorityObj) {
+                    if(tabbedObj[key]===undefined) tabbedObj[key]=6;
                     score+=Math.abs(tabbedObj[key]-priorityObj[key]);
                   }
-                  res.status(200).send(score);
+                  console.log('score:',score);
+                  res.status(200).send({score:score});
                 }
           });
 

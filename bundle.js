@@ -69,11 +69,11 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _timeTracker = __webpack_require__(448);
+	var _timeTracker = __webpack_require__(449);
 
 	var _timeTracker2 = _interopRequireDefault(_timeTracker);
 
-	var _reducers = __webpack_require__(449);
+	var _reducers = __webpack_require__(450);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -21545,7 +21545,11 @@
 
 	var _inputBox2 = _interopRequireDefault(_inputBox);
 
-	var _timeTracker = __webpack_require__(448);
+	var _score = __webpack_require__(448);
+
+	var _score2 = _interopRequireDefault(_score);
+
+	var _timeTracker = __webpack_require__(449);
 
 	var _timeTracker2 = _interopRequireDefault(_timeTracker);
 
@@ -21572,9 +21576,11 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
-	      list: []
+	      list: [],
+	      score: -1
 	    };
 	    _this.handleListInput = _this.handleListInput.bind(_this);
+	    _this.handleCalScore = _this.handleCalScore.bind(_this);
 	    return _this;
 	  }
 
@@ -21609,6 +21615,28 @@
 	      });
 	    }
 	  }, {
+	    key: 'handleCalScore',
+	    value: function handleCalScore(e) {
+	      var that = this;
+	      e.preventDefault();
+	      var today = new Date();
+	      var entry = {
+	        month: today.getMonth() + 1,
+	        year: today.getFullYear(),
+	        user: 'camilliatree'
+	      };
+	      this.serverRequest = _axios2.default.get('/api/scores', {
+	        params: entry
+	      }).then(function (res) {
+	        console.log('score response:', res);
+	        that.setState({
+	          score: res.data.score
+	        });
+	      }).catch(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21637,7 +21665,9 @@
 	            'div',
 	            { className: 'col-md-8' },
 	            _react2.default.createElement(_inputBox2.default, { addToList: this.handleListInput }),
-	            _react2.default.createElement(_container2.default, { list: this.state.list })
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(_container2.default, { list: this.state.list }),
+	            _react2.default.createElement(_score2.default, { score: this.state.score, click: this.handleCalScore })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -25907,7 +25937,7 @@
 	      ),
 	      _react2.default.createElement(
 	        'button',
-	        { className: 'button btn btn-default' },
+	        { className: 'button btn btn-success' },
 	        'Submit'
 	      )
 	    )
@@ -33336,20 +33366,16 @@
 	          { className: 'col-md-10' },
 	          _react2.default.createElement(
 	            'form',
-	            { className: 'input-group', onSubmit: this.handleFormSubmit },
+	            { className: 'input-group input-group-lg', onSubmit: this.handleFormSubmit },
 	            _react2.default.createElement('input', {
 	              className: 'form-control',
 	              placeholder: 'Write down your top 5 priorities for this month and rank them...',
 	              value: this.state.text,
 	              onChange: this.handleInputChange }),
 	            _react2.default.createElement(
-	              'div',
-	              { className: 'input-group-addon' },
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                '\u270E'
-	              )
+	              'span',
+	              { className: 'input-group-addon', id: 'sizing-addon2' },
+	              '\u270E'
 	            )
 	          )
 	        )
@@ -33364,6 +33390,80 @@
 
 /***/ },
 /* 448 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Score = function Score(props) {
+	  if (props.score < 0) {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row col-md-10' },
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement('hr', { className: 'm-y-2' }),
+	      _react2.default.createElement(
+	        'a',
+	        { className: 'btn text-md-center', onClick: props.click },
+	        _react2.default.createElement(
+	          'h3',
+	          { className: 'lead text-md-center' },
+	          'Calculate your priority score for today >>'
+	        )
+	      )
+	    );
+	  } else {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'row col-md-10' },
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement('hr', { className: 'm-y-2' }),
+	      _react2.default.createElement(
+	        'a',
+	        { className: 'btn text-md-center', onClick: props.click },
+	        _react2.default.createElement(
+	          'h3',
+	          { className: 'lead text-md-center' },
+	          'Calculate your priority score again >>'
+	        )
+	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'h2',
+	        { className: 'text-md-center' },
+	        'Your priority score today'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'text-md-center lead' },
+	        '(lower score is better)'
+	      ),
+	      _react2.default.createElement(
+	        'h2',
+	        { className: 'text-md-center' },
+	        _react2.default.createElement(
+	          'span',
+	          { style: { fontSize: '500%' }, className: 'tag tag-warning' },
+	          props.score
+	        )
+	      )
+	    );
+	  }
+	};
+
+	exports.default = Score;
+
+/***/ },
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33420,7 +33520,7 @@
 	exports.default = TimeTracker;
 
 /***/ },
-/* 449 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

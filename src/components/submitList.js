@@ -46,7 +46,7 @@ const SubmitList = (props)=> {
     <div className='row offset-md-5'>
       <form onSubmit={handleListSubmit} className='pull-right'>
       <label className='pull-right'>Submit when you're done >>  </label>
-      <button className='button btn btn-default'>
+      <button className='button btn btn-success'>
         Submit
       </button>
       </form>

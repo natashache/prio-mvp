@@ -29,15 +29,13 @@ export default class Inputbox extends Component {
     return (
       <div className='row'>
         <div className='col-md-10'>
-          <form className='input-group' onSubmit={this.handleFormSubmit}>
+          <form className='input-group input-group-lg' onSubmit={this.handleFormSubmit}>
             <input
               className='form-control'
               placeholder="Write down your top 5 priorities for this month and rank them..."
               value={this.state.text}
               onChange={this.handleInputChange}/>
-            <div className='input-group-addon'>
-              <span>&#9998;</span>
-            </div>
+              <span className="input-group-addon" id="sizing-addon2">&#9998;</span>
           </form>
         </div>
       </div>
